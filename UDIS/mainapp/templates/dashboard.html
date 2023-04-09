@@ -1,0 +1,226 @@
+{% extends "base.html" %}{% load static %} {% load apptags %}
+{% block content %}
+<!--*******************
+        Preloader end
+    ********************-->
+
+<!--**********************************
+            Content body start
+        ***********************************-->
+{% comment %} <link href="{% static 'secretary/css/style.css' %}" type="text/html" /> {% endcomment %}
+
+<div class="content-body">
+  <div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="filter cm-content-box box-primary">
+          <div class="content-title">
+            <div class="cpa">
+              <i class="fa-sharp fa-solid fa-filter me-2"></i>Filter
+            </div>
+            <div class="tools">
+              <a href="javascript:void(0);" class="expand SlideToolHeader"
+                ><i class="fal fa-angle-down"></i
+              ></a>
+            </div>
+          </div>
+          <div class="cm-content-body form excerpt">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-xl-3">
+                  <input
+                    type="text"
+                    class="form-control mb-xl-0 mb-3"
+                    id="name"
+                    placeholder="Name"
+                  />
+                </div>
+                <div class="col-xl-3">
+                  <input
+                    type="text"
+                    class="form-control mb-xl-0 mb-3"
+                    id="rollno"
+                    placeholder="Roll No."
+                  />
+                </div>
+                <div class="col-xl-3">
+											<div class="dropdown bootstrap-select default-select from-select w-100 mb-xl-0 mb-3 wide"><select class="default-select from-select w-100 mb-xl-0 mb-3 wide" aria-label="Default select example" tabindex="null">
+												<option selected="">Select Semester</option>
+												<option value="1">Semester 1</option>
+												<option value="2">Semester 2</option>
+												<option value="3">Semester 3</option>
+												<option value="4">Semester 4</option>
+												<option value="5">Semester 5</option>
+												<option value="6">Semester 6</option>
+												<option value="7">Semester 7</option>
+												<option value="8">Semester 8</option>
+												<option value="9">Semester 9</option>
+												<option value="10">Semester 10</option>
+
+											</select><button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-bs-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="Select Status"><div class="filter-option"><div class="filter-option-inner"><div class="filter-option-inner-inner">Select Status</div></div> </div></button><div class="dropdown-menu "><div class="inner show" role="listbox" id="bs-select-2" tabindex="-1"><ul class="dropdown-menu inner show" role="presentation"></ul></div></div></div> 
+										</div>
+                <!-- <div class="col-xl-3">
+											<input type="date" name="datepicker" class=" form-control mb-xl-0 mb-3">
+										</div> -->
+                <div class="col-xl-3">
+                  <button
+                    class="btn btn-info"
+                    title="Click here to Search"
+                    type="button"
+                  >
+                    <i class="fa fa-search me-1"></i>Filter
+                  </button>
+                  <button
+                    class="btn btn-light"
+                    title="Click here to remove filter"
+                    type="button"
+                  >
+                    Remove Filter
+                  </button>
+                </div>
+              </div>
+
+              <div class="row" style="padding: 20px">
+                <div class="form-check col-md-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Registered
+                  </label>
+                </div>
+                <div class="form-check col">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckChecked"
+                    checked
+                  />
+                  <label class="form-check-label" for="flexCheckChecked">
+                    Fee payment
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <a href="content-add.html" class="btn btn-primary">Add Student</a>
+        </div>
+        <div class="filter cm-content-box box-primary">
+          <div class="content-title">
+            <div class="cpa">
+              <i class="fa-solid fa-file-lines me-1"></i>Student List
+            </div>
+            <div class="tools">
+              <a href="javascript:void(0);" class="expand SlideToolHeader"
+                ><i class="fal fa-angle-down"></i
+              ></a>
+            </div>
+          </div>
+          <div class="cm-content-body form excerpt">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table
+                  class="table table-bordered table-striped table-condensed flip-content"
+                >
+                  <thead>
+                    <tr>
+                      <th>Roll No.</th>
+                      <th>Name</th>
+                      <th>Semester</th>
+                      <th>Fee Payment</th>
+                      <th>Registered</th>
+                      <!-- <th>Actions</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for student in students%}
+                    <tr onclick="window.location='student-profile/{{student.rollno}}';">
+                      <td>{{student.rollno}}</td>
+                      <td>{{student.name}}</td>
+                      <td>{{student.sem}}th Semester</td>
+                         <td>{{ fees|at_index:forloop.counter0 }}</td>
+                      {% comment %} <td>{% if student.fees[ {{forloop.counter1}} ] %} Yes {% else %}No {% endif %}</td> {% endcomment %}
+                      <td>{{student.regdone}}</td>
+                    </tr>
+                    {% endfor %}
+      
+                  </tbody>
+                </table>
+                <div
+                  class="d-flex align-items-center justify-content-xl-between flex-wrap justify-content-center"
+                >
+                  <!-- <span>Page 1 of 4, showing 2 records out of 8 total, starting on record 1, ending on 2</span> -->
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination mb-2 mb-sm-0">
+                      <li class="page-item">
+                        <a class="page-link" href="#"
+                          ><i class="fa-solid fa-angle-left"></i
+                        ></a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#"
+                          ><i class="fa-solid fa-angle-right"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--**********************************
+            Content body end
+        ***********************************-->
+<!--**********************************
+					Footer start
+				***********************************-->
+
+<!--**********************************
+            Footer end
+        ***********************************-->
+
+<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+<!--**********************************
+           Support ticket button end
+        ***********************************-->
+<!--**********************************
+        Main wrapper end
+    ***********************************-->
+<!--**********************************
+		Modal
+***********************************-->
+
+<!--**********************************
+	Modal
+***********************************-->
+
+<!--**********************************
+        Scripts
+    ***********************************-->
+<!-- Required vendors -->
+{% endblock content %}
